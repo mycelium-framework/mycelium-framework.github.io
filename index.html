@@ -1,123 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Mycelium Framework – White Paper</title>
-  <style>
-    :root {
-      --bg: #f5f5f7;
-      --surface: #ffffff;
-      --text: #1f2933;
-      --muted: #4b5563;
-      --accent: #2563eb;
-      --border: #e5e7eb;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    .page {
-      max-width: 960px;
-      margin: 2.5rem auto;
-      padding: 2.5rem 1.5rem;
-    }
-    .paper {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 2.5rem 2.25rem;
-      box-shadow: 0 18px 40px rgba(15,23,42,.08);
-      border: 1px solid var(--border);
-    }
-    h1 {
-      font-size: 2rem;
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
-    }
-    h2 {
-      font-size: 1.35rem;
-      margin-top: 2.25rem;
-      margin-bottom: 0.75rem;
-    }
-    h3 {
-      font-size: 1.1rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.35rem;
-    }
-    .subtitle {
-      font-size: 1.05rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .meta {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-    .meta span {
-      display: inline-block;
-      margin-right: 1.5rem;
-    }
-    p {
-      margin: 0 0 0.85rem;
-    }
-    strong {
-      font-weight: 600;
-    }
-    .section-number {
-      font-weight: 600;
-      color: var(--accent);
-      margin-right: 0.35rem;
-    }
-    .references {
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.9rem;
-    }
-    .references p {
-      margin-bottom: 0.35rem;
-    }
-    .references a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    .references a:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 720px) {
-      .page {
-        margin: 1.5rem auto;
-        padding: 1.5rem 1rem;
-      }
-      .paper {
-        padding: 1.75rem 1.5rem;
-        border-radius: 10px;
-      }
-      h1 { font-size: 1.6rem; }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Mycelium Framework</title>
+  <meta name="description" content="The Mycelium Framework - AI-enabled governance, accelerated decision-making, and organizational modernization." />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <main class="page">
-    <article class="paper">
-      <header>
-        <h1>The Mycelium Framework</h1>
-        <p class="subtitle">
-          An AI‑Enabled Model for Simplified Governance, Accelerated Decision‑Making, and Organizational Modernization
-        </p>
-        <div class="meta">
-          <span><strong>Author:</strong> Hamida Rebai</span>
-          <span><strong>Date:</strong> February 2, 2026</span>
-        </div>
-      </header>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <span>The Mycelium Framework</span>
+      </div>
+      <nav class="top-nav">
+        <a href="#abstract">Abstract</a>
+        <a href="#introduction">Introduction</a>
+        <a href="#research">Research</a>
+        <a href="#propositions">Core Propositions</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#references">References</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">◐</button>
+    </div>
+  </header>
 
-      <section>
-        <h2><span class="section-number">Abstract</span></h2>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">White Paper · February 2, 2026</p>
+          <h1>The Mycelium Framework</h1>
+          <p class="hero-subtitle">
+            An AI‑Enabled Model for Simplified Governance, Accelerated Decision‑Making,
+            and Organizational Modernization
+          </p>
+          <div class="hero-meta">
+            <span><strong>Author:</strong> Hamida Rebai</span>
+            <span><strong>Date:</strong> February 2, 2026</span>
+          </div>
+          <a class="cta" href="#abstract">Start reading</a>
+        </div>
+
+        <aside class="toc-card">
+          <h2>Contents</h2>
+          <ul>
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#introduction">1. Introduction</a></li>
+            <li><a href="#research">2. Related Research</a></li>
+            <li><a href="#propositions">3. Core Propositions</a></li>
+            <li><a href="#alignment">4. Alignment</a></li>
+            <li><a href="#implementation">5. Implementation</a></li>
+            <li><a href="#conclusion">6. Conclusion</a></li>
+            <li><a href="#references">References</a></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="abstract" class="section">
+      <div class="container reading">
+        <p class="section-label">Abstract</p>
         <p>
           The Mycelium framework proposes an approach to digital transformation in which artificial intelligence (AI) is leveraged not merely to automate tasks, but to restructure governance, accelerate decision‑making, and modernize organizational operating models.
         </p>
@@ -127,10 +71,12 @@
         <p>
           The analysis shows that Mycelium synthesizes and operationalizes these perspectives into a coherent framework designed for complex, AI‑enabled organizations.
         </p>
-      </section>
+      </div>
+    </section>
 
-      <section>
-        <h2><span class="section-number">1.</span> Introduction</h2>
+    <section id="introduction" class="section alt">
+      <div class="container reading">
+        <p class="section-label">1. Introduction</p>
         <p>
           As AI becomes embedded across enterprise operations, organizations increasingly recognize that automation alone does not deliver transformation. Deloitte emphasizes that AI governance must evolve from a compliance function into a strategic capability that accelerates innovation and improves decision quality.
         </p>
@@ -141,136 +87,140 @@
           Harvard Business Review (HBR) research further demonstrates that many AI initiatives fail not because of technological limitations, but due to organizational inertia, bureaucratic decision processes, and misaligned governance structures.
         </p>
         <p>
-          These insights motivate the Mycelium framework’s core premise: governance itself must be redesigned for an AI‑enabled world. The Mycelium framework conceptualizes organizations as living, distributed systems, where AI augments human judgment, governance is embedded into operational flows, and decision authority is aligned with proximity to information rather than hierarchical position.
+          These insights motivate the Mycelium framework’s core premise: governance itself must be redesigned for an AI‑enabled world.
         </p>
-      </section>
+        <p>
+          The Mycelium framework conceptualizes organizations as living, distributed systems, where AI augments human judgment, governance is embedded into operational flows, and decision authority is aligned with proximity to information rather than hierarchical position.
+        </p>
+      </div>
+    </section>
 
-      <section>
-        <h2><span class="section-number">2.</span> Related Research and Thought Leadership</h2>
+    <section id="research" class="section">
+      <div class="container reading">
+        <p class="section-label">2. Related Research and Thought Leadership</p>
 
-        <h3>2.1 Deloitte: Dynamic and Trustworthy AI Governance</h3>
+        <h2>2.1 Deloitte: Dynamic and Trustworthy AI Governance</h2>
         <p>
           Deloitte’s research reframes governance as an enabler rather than a constraint. Its work on dynamic AI governance argues for governance systems that evolve alongside technology and regulation, integrating human oversight with adaptive controls.
         </p>
         <p>
-          This approach aligns closely with the Mycelium metaphor of distributed, responsive structures.
+          In Trustworthy AI in Practice, Deloitte stresses that trust emerges from end‑to‑end governance across the AI lifecycle, combining clear roles, accountability, education, and continuous monitoring.
         </p>
         <p>
-          In <em>Trustworthy AI in Practice</em>, Deloitte stresses that trust emerges from end‑to‑end governance across the AI lifecycle, combining clear roles, accountability, education, and continuous monitoring. Mycelium extends this logic by embedding these controls directly into decision workflows rather than treating them as post‑hoc compliance activities.
-        </p>
-        <p>
-          Deloitte’s AI Governance Roadmap further emphasizes clear decision rights and proportionate oversight, reinforcing the need to reduce centralized bottlenecks while preserving accountability—an explicit design goal of the Mycelium framework.
+          Deloitte’s AI Governance Roadmap further emphasizes clear decision rights and proportionate oversight, reinforcing the need to reduce centralized bottlenecks while preserving accountability.
         </p>
 
-        <h3>2.2 Gartner: AI Governance Operating Models and Decision Velocity</h3>
+        <h2>2.2 Gartner: AI Governance Operating Models and Decision Velocity</h2>
         <p>
           Gartner’s AI governance research focuses on operating models, not policies alone. Governance is positioned as a mechanism to balance risk and value creation, enabling faster deployment of AI while maintaining trust, transparency, and oversight.
         </p>
         <p>
-          Gartner’s analysis of data and analytics governance highlights the importance of embedded capabilities such as lineage, observability, and policy enforcement—features that allow non‑technical teams to participate in governed decision‑making. These ideas directly support Mycelium’s emphasis on transparency and distributed intelligence.
+          Gartner’s analysis of data and analytics governance highlights the importance of embedded capabilities such as lineage, observability, and policy enforcement.
         </p>
         <p>
-          Looking forward, Gartner predicts that AI agents will augment or automate a significant proportion of enterprise decisions within the next few years. This shift strengthens the case for Mycelium’s focus on lightweight, adaptive governance structures that can operate at machine speed without reverting to bureaucratic control.
+          Looking forward, Gartner predicts that AI agents will augment or automate a significant proportion of enterprise decisions within the next few years.
         </p>
 
-        <h3>2.3 Harvard: Organizational Redesign, Transparency, and Accountability</h3>
+        <h2>2.3 Harvard: Organizational Redesign, Transparency, and Accountability</h2>
         <p>
-          Harvard Business Review consistently finds that AI initiatives succeed only when organizational structures and governance models are redesigned to support new decision logics. In <em>Overcoming the Organizational Barriers to AI Adoption</em>, HBR identifies bureaucracy, rigid workflows, and internal politics as primary inhibitors of AI value realization.
+          Harvard Business Review consistently finds that AI initiatives succeed only when organizational structures and governance models are redesigned to support new decision logics.
         </p>
         <p>
-          In <em>Match Your AI Strategy to Your Organization’s Reality</em>, HBR further argues that AI must be matched with compatible operating models; otherwise, even technically successful pilots fail to scale. These findings strongly reinforce the Mycelium framework’s assertion that organizational design—not technology alone—is the limiting factor.
+          In Match Your AI Strategy to Your Organization’s Reality, HBR further argues that AI must be matched with compatible operating models; otherwise, even technically successful pilots fail to scale.
         </p>
         <p>
-          Harvard Business School research on AI governance also highlights the importance of transparency and accountability to counter black‑box decision‑making. Mycelium operationalizes these principles through built‑in traceability and explainability across decision pathways.
+          Harvard Business School research on AI governance also highlights the importance of transparency and accountability to counter black‑box decision‑making.
         </p>
-      </section>
+      </div>
+    </section>
 
-      <section>
-        <h2><span class="section-number">3.</span> Core Propositions of the Mycelium Framework</h2>
+    <section id="propositions" class="section alt">
+      <div class="container reading">
+        <p class="section-label">3. Core Propositions of the Mycelium Framework</p>
 
-        <h3>3.1 Governance as an Embedded Capability</h3>
-        <p>
-          Governance should be integrated into everyday decision‑making, not centralized in slow approval committees. Mycelium embeds controls, traceability, and oversight directly into workflows, enabling speed without sacrificing accountability.
-        </p>
+        <div class="cards">
+          <article class="card">
+            <h3>3.1 Governance as an Embedded Capability</h3>
+            <p>Governance should be integrated into everyday decision‑making, not centralized in slow approval committees.</p>
+          </article>
+          <article class="card">
+            <h3>3.2 Distributed Decision Rights</h3>
+            <p>Decision authority is distributed to the organizational edges where information is generated.</p>
+          </article>
+          <article class="card">
+            <h3>3.3 Decision Velocity with Transparency</h3>
+            <p>Mycelium prioritizes decision velocity while ensuring transparency through lineage, logging, and explainability.</p>
+          </article>
+          <article class="card">
+            <h3>3.4 Continuous Adaptation</h3>
+            <p>Governance is treated as a living system, continuously adapting through feedback loops, audits, and learning mechanisms.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <h3>3.2 Distributed Decision Rights</h3>
-        <p>
-          Decision authority is distributed to the organizational edges where information is generated, supported by clear decision rights and risk‑tiered governance. This reduces bureaucratic friction while maintaining alignment with enterprise objectives.
-        </p>
+    <section id="alignment" class="section">
+      <div class="container reading">
+        <p class="section-label">4. Alignment with Established Frameworks</p>
+        <div class="alignment-grid">
+          <article class="mini-panel">
+            <h3>Deloitte</h3>
+            <p>Mycelium operationalizes dynamic and trustworthy AI governance by embedding oversight into operational systems rather than external controls.</p>
+          </article>
+          <article class="mini-panel">
+            <h3>Gartner</h3>
+            <p>Mycelium aligns with AI governance operating models focused on decision velocity, time‑to‑value, and enterprise‑wide participation.</p>
+          </article>
+          <article class="mini-panel">
+            <h3>Harvard</h3>
+            <p>Mycelium directly addresses the organizational and governance redesign challenges identified as prerequisites for AI success.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <h3>3.3 Decision Velocity with Transparency</h3>
-        <p>
-          Mycelium prioritizes decision velocity while ensuring transparency through lineage, logging, and explainability. This design supports AI‑augmented decision flows anticipated by Gartner and addresses accountability concerns raised by Harvard researchers.
-        </p>
+    <section id="implementation" class="section alt">
+      <div class="container reading">
+        <p class="section-label">5. Implementation Implications</p>
+        <ul class="clean-list">
+          <li>Define explicit decision rights and risk tiers for AI‑enabled decisions.</li>
+          <li>Embed observability, lineage, and explainability into decision systems.</li>
+          <li>Replace static policies with adaptive governance routines.</li>
+          <li>Align incentives and performance measures with distributed decision‑making.</li>
+        </ul>
+      </div>
+    </section>
 
-        <h3>3.4 Continuous Adaptation</h3>
-        <p>
-          Governance is treated as a living system, continuously adapting through feedback loops, audits, and learning mechanisms as technologies, regulations, and organizational contexts evolve.
-        </p>
-      </section>
-
-      <section>
-        <h2><span class="section-number">4.</span> Alignment with Established Frameworks</h2>
-        <p>
-          <strong>Deloitte:</strong> Mycelium operationalizes dynamic and trustworthy AI governance by embedding oversight into operational systems rather than external controls.
-        </p>
-        <p>
-          <strong>Gartner:</strong> Mycelium aligns with AI governance operating models focused on decision velocity, time‑to‑value, and enterprise‑wide participation.
-        </p>
-        <p>
-          <strong>Harvard:</strong> Mycelium directly addresses the organizational and governance redesign challenges identified as prerequisites for AI success.
-        </p>
-      </section>
-
-      <section>
-        <h2><span class="section-number">5.</span> Implementation Implications</h2>
-        <p>Organizations adopting the Mycelium framework should:</p>
-        <p>• Define explicit decision rights and risk tiers for AI‑enabled decisions.</p>
-        <p>• Embed observability, lineage, and explainability into decision systems.</p>
-        <p>• Replace static policies with adaptive governance routines.</p>
-        <p>• Align incentives and performance measures with distributed decision‑making.</p>
-      </section>
-
-      <section>
-        <h2><span class="section-number">6.</span> Conclusion</h2>
+    <section id="conclusion" class="section">
+      <div class="container reading">
+        <p class="section-label">6. Conclusion</p>
         <p>
           Research from Deloitte, Gartner, and Harvard converges on a central insight: AI demands new forms of governance that are adaptive, embedded, transparent, and decision‑centric.
         </p>
         <p>
-          The Mycelium framework synthesizes these insights into a coherent model that reduces bureaucratic friction, unlocks team potential, and enables organizations to scale AI responsibly. As AI increasingly shapes enterprise decisions, Mycelium provides a practical and conceptually grounded approach to modern governance.
+          The Mycelium framework synthesizes these insights into a coherent model that reduces bureaucratic friction, unlocks team potential, and enables organizations to scale AI responsibly.
         </p>
-      </section>
+      </div>
+    </section>
 
-      <section class="references">
-        <h2><span class="section-number">References</span></h2>
-        <p>Deloitte. <em>Dynamic AI Governance: A Recipe for Crafting Trustworthy AI.</em></p>
-        <p><a href="https://www.deloitte.com/us/en/insights/industry/government-public-sector-services/static-to-dynamic-ai-governance.html" target="_blank" rel="noopener noreferrer">Deloitte – Dynamic AI Governance</a></p>
-
-        <p>Deloitte. <em>Trustworthy AI in Practice.</em></p>
-        <p><a href="https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/articles/trustworthy-ai-governance-in-practice.html" target="_blank" rel="noopener noreferrer">Deloitte – Trustworthy AI in Practice</a></p>
-
-        <p>Deloitte / WSJ CIO Journal. <em>From Compliance to Catalyst: How Strong Governance Can Fuel AI Innovation.</em></p>
-        <p><a href="https://deloitte.wsj.com/cio/from-compliance-to-catalyst-how-strong-governance-can-fuel-ai-innovation-2da1f36d" target="_blank" rel="noopener noreferrer">Deloitte / WSJ CIO Journal</a></p>
-
-        <p>Deloitte. <em>Strategic Governance of AI: A Roadmap for the Future.</em></p>
-        <p><a href="https://corpgov.law.harvard.edu/2025/04/24/strategic-governance-of-ai-a-roadmap-for-the-future/" target="_blank" rel="noopener noreferrer">Harvard Law School Forum – Strategic Governance of AI</a></p>
-
-        <p>Gartner. <em>How to Design an Effective AI Governance Operating Model.</em></p>
-        <p><a href="https://www.gartner.com/en/documents/5577627" target="_blank" rel="noopener noreferrer">Gartner – AI Governance Operating Model</a></p>
-
-        <p>Technology Magazine. <em>AI Agents Will Drive Half of Decisions by 2027.</em></p>
-        <p><a href="https://technologymagazine.com/articles/gartner-ai-agents-will-drive-half-of-decisions-by-2027" target="_blank" rel="noopener noreferrer">Technology Magazine – Gartner AI Agents</a></p>
-
-        <p>Harvard Business Review. <em>Overcoming the Organizational Barriers to AI Adoption.</em></p>
-        <p><a href="https://hbr.org/2025/11/overcoming-the-organizational-barriers-to-ai-adoption" target="_blank" rel="noopener noreferrer">HBR – Barriers to AI Adoption</a></p>
-
-        <p>Harvard Business Review. <em>Match Your AI Strategy to Your Organization’s Reality.</em></p>
-        <p><a href="https://hbr.org/2026/01/match-your-ai-strategy-to-your-organizations-reality" target="_blank" rel="noopener noreferrer">HBR – Match Your AI Strategy</a></p>
-
-        <p>Harvard Business School, Institute for Business in Global Society. <em>Transparency and Accountability Are Crucial to AI Governance.</em></p>
-        <p><a href="https://www.hbs.edu/bigs/marc-rotenberg-artificial-intelligence" target="_blank" rel="noopener noreferrer">HBS – Transparency and Accountability</a></p>
-      </section>
-    </article>
+    <section id="references" class="section references-section">
+      <div class="container reading">
+        <p class="section-label">References</p>
+        <ol class="refs">
+          <li><a href="https://www.deloitte.com/us/en/insights/industry/government-public-sector-services/static-to-dynamic-ai-governance.html" target="_blank" rel="noopener noreferrer">Deloitte – Dynamic AI Governance</a></li>
+          <li><a href="https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/articles/trustworthy-ai-governance-in-practice.html" target="_blank" rel="noopener noreferrer">Deloitte – Trustworthy AI in Practice</a></li>
+          <li><a href="https://deloitte.wsj.com/cio/from-compliance-to-catalyst-how-strong-governance-can-fuel-ai-innovation-2da1f36d" target="_blank" rel="noopener noreferrer">Deloitte / WSJ CIO Journal</a></li>
+          <li><a href="https://corpgov.law.harvard.edu/2025/04/24/strategic-governance-of-ai-a-roadmap-for-the-future/" target="_blank" rel="noopener noreferrer">Strategic Governance of AI</a></li>
+          <li><a href="https://www.gartner.com/en/documents/5577627" target="_blank" rel="noopener noreferrer">Gartner – AI Governance Operating Model</a></li>
+          <li><a href="https://technologymagazine.com/articles/gartner-ai-agents-will-drive-half-of-decisions-by-2027" target="_blank" rel="noopener noreferrer">Technology Magazine – Gartner AI Agents</a></li>
+          <li><a href="https://hbr.org/2025/11/overcoming-the-organizational-barriers-to-ai-adoption" target="_blank" rel="noopener noreferrer">HBR – Barriers to AI Adoption</a></li>
+          <li><a href="https://hbr.org/2026/01/match-your-ai-strategy-to-your-organizations-reality" target="_blank" rel="noopener noreferrer">HBR – Match Your AI Strategy</a></li>
+          <li><a href="https://www.hbs.edu/bigs/marc-rotenberg-artificial-intelligence" target="_blank" rel="noopener noreferrer">HBS – Transparency and Accountability</a></li>
+        </ol>
+      </div>
+    </section>
   </main>
+
+  <script src="./script.js" defer></script>
 </body>
 </html>
