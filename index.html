@@ -1,20 +1,1030 @@
-<body id="top">
-  <header class="site-header">
-    <div class="container nav">
-      <a href="#top" class="brand" aria-label="Back to top">
-        <div class="brand-mark"></div>
-        <span>The Mycelium Framework</span>
-      </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Mycelium Framework</title>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      <nav class="top-nav">
-        <a href="#abstract">Abstract</a>
-        <a href="#introduction">Introduction</a>
-        <a href="#research">Research</a>
-        <a href="#propositions">Core Propositions</a>
-        <a href="#implementation">Implementation</a>
-        <a href="#references">References</a>
-      </nav>
+    :root {
+      --bg:        #080c10;
+      --surface:   #0d1420;
+      --surface2:  #111927;
+      --border:    rgba(100, 220, 180, 0.15);
+      --accent1:   #4dffb4;   /* teal-green */
+      --accent2:   #a78bfa;   /* violet */
+      --accent3:   #38bdf8;   /* sky */
+      --text:      #c8d8e8;
+      --muted:     #607080;
+      --heading:   #e8f4ff;
+      --glow1:     rgba(77, 255, 180, 0.18);
+      --glow2:     rgba(167, 139, 250, 0.18);
+    }
 
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">◐</button>
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Mycelium canvas background ───────────────────────────── */
+    #mycelium-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* ── Scroll progress bar ──────────────────────────────────── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      z-index: 100;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px var(--accent1);
+    }
+
+    /* ── Navigation ───────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(8, 12, 16, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent1);
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 14px var(--accent1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent1);
+      text-shadow: 0 0 10px var(--accent1);
+    }
+
+    /* ── Layout wrapper ───────────────────────────────────────── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      color: var(--heading);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .meta-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      background: rgba(77, 255, 180, 0.04);
+    }
+
+    .meta-tag .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent1);
+      box-shadow: 0 0 6px var(--accent1);
+    }
+
+    .scroll-hint {
+      margin-top: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.2s forwards;
+    }
+
+    .scroll-arrow {
+      width: 20px; height: 20px;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      animation: bounce 1.5s infinite;
+    }
+
+    /* ── Section ──────────────────────────────────────────────── */
+    section {
+      margin-bottom: 5rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1px;
+      background: var(--accent1);
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent1);
+      margin-bottom: 0.6rem;
+    }
+
+    p { margin-bottom: 1rem; }
+
+    /* ── Abstract card ────────────────────────────────────────── */
+    .abstract-card {
+      background: linear-gradient(135deg, rgba(77, 255, 180, 0.06), rgba(167, 139, 250, 0.06));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 2.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .abstract-card::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem;
+      left: 1.5rem;
+      font-size: 8rem;
+      color: var(--accent1);
+      opacity: 0.06;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .abstract-card:hover {
+      border-color: rgba(77, 255, 180, 0.4);
+      box-shadow: 0 0 40px var(--glow1);
+    }
+
+    /* ── Source cards (Deloitte / Gartner / Harvard) ──────────── */
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .source-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      cursor: default;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .source-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--card-glow, rgba(77,255,180,0.06));
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 12px;
+    }
+
+    .source-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      border-color: var(--card-color, var(--accent1));
+    }
+
+    .source-card:hover::after { opacity: 1; }
+
+    .source-card[data-src="deloitte"] {
+      --card-color: #4dffb4;
+      --card-glow: rgba(77,255,180,0.06);
+    }
+    .source-card[data-src="gartner"] {
+      --card-color: #38bdf8;
+      --card-glow: rgba(56,189,248,0.06);
+    }
+    .source-card[data-src="harvard"] {
+      --card-color: #a78bfa;
+      --card-glow: rgba(167,139,250,0.06);
+    }
+
+    .source-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .source-card h3 {
+      color: var(--card-color, var(--accent1));
+      margin-bottom: 0.4rem;
+    }
+
+    .source-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ── Propositions ─────────────────────────────────────────── */
+    .props-grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .prop-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem 2rem;
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1.2rem;
+      align-items: start;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+
+    .prop-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(77, 255, 180, 0.4);
+      box-shadow: -4px 0 24px var(--glow1);
+    }
+
+    .prop-num {
+      width: 3rem; height: 3rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--bg);
+      flex-shrink: 0;
+      box-shadow: 0 0 14px var(--glow1);
+    }
+
+    .prop-body h3 {
+      color: var(--heading);
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .prop-body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── Alignment table ──────────────────────────────────────── */
+    .align-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .align-table th {
+      background: var(--surface2);
+      color: var(--accent1);
+      text-align: left;
+      padding: 0.8rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .align-table td {
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid rgba(100,220,180,0.07);
+      color: var(--text);
+      vertical-align: top;
+    }
+
+    .align-table tr:hover td {
+      background: rgba(77, 255, 180, 0.04);
+    }
+
+    .align-table .org {
+      color: var(--accent1);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ── Implementation steps ─────────────────────────────────── */
+    .impl-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .impl-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.4rem;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: default;
+    }
+
+    .impl-list li:hover {
+      border-color: rgba(167, 139, 250, 0.5);
+      transform: translateX(4px);
+    }
+
+    .impl-check {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--accent2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      transition: background 0.25s;
+    }
+
+    .impl-list li:hover .impl-check {
+      background: var(--accent2);
+      color: var(--bg);
+    }
+
+    /* ── References ───────────────────────────────────────────── */
+    .refs-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .refs-list li {
+      font-size: 0.84rem;
+      color: var(--muted);
+      border-left: 2px solid var(--border);
+      padding-left: 1rem;
+      line-height: 1.6;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .refs-list li:hover {
+      border-color: var(--accent1);
+      color: var(--text);
+    }
+
+    .refs-list a {
+      color: var(--accent3);
+      text-decoration: none;
+      word-break: break-all;
+      transition: color 0.2s;
+    }
+
+    .refs-list a:hover { color: var(--accent1); }
+
+    /* ── Divider ──────────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 3rem 0;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    footer span { color: var(--accent1); }
+
+    /* ── Scroll-reveal ────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Keyframes ────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50%       { transform: rotate(45deg) translateY(6px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      nav { padding: 0.9rem 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .wrapper { padding: 0 1.2rem 4rem; }
+      .align-table { font-size: 0.8rem; }
+      .align-table th, .align-table td { padding: 0.6rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Animated mycelium network background -->
+<canvas id="mycelium-bg"></canvas>
+
+<!-- Scroll progress -->
+<div id="progress-bar"></div>
+
+<!-- Navigation -->
+<nav>
+  <span class="nav-logo">&#10022; Mycelium</span>
+  <ul class="nav-links">
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#propositions">Framework</a></li>
+    <li><a href="#alignment">Alignment</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero" id="top">
+  <p class="hero-eyebrow">White Paper &mdash; February 2, 2026</p>
+  <h1>The <span>Mycelium</span> Framework</h1>
+  <p class="hero-subtitle">
+    An AI‑Enabled Model for Simplified Governance, Accelerated Decision‑Making,
+    and Organizational Modernization
+  </p>
+  <div class="hero-meta">
+    <div class="meta-tag"><span class="dot"></span> Author: Hamida Rebai</div>
+    <div class="meta-tag"><span class="dot"></span> AI Governance</div>
+    <div class="meta-tag"><span class="dot"></span> Digital Transformation</div>
+  </div>
+  <div class="scroll-hint">
+    <span>Explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<!-- Content -->
+<main class="wrapper">
+
+  <!-- Abstract -->
+  <section id="abstract" class="reveal">
+    <p class="section-label">Abstract</p>
+    <h2>Overview</h2>
+    <div class="abstract-card">
+      <p>
+        The Mycelium framework proposes an approach to digital transformation in which artificial
+        intelligence is leveraged not merely to automate tasks, but to <strong>restructure
+        governance, accelerate decision‑making, and modernize organizational operating models</strong>.
+      </p>
+      <p>
+        This white paper positions Mycelium within established research and thought leadership from
+        Deloitte, Gartner, and Harvard, demonstrating strong conceptual alignment around adaptive
+        governance, reduced bureaucratic friction, decision velocity, and end‑to‑end transparency
+        and traceability.
+      </p>
+      <p style="margin:0">
+        The analysis shows that Mycelium synthesizes and operationalizes these perspectives into a
+        coherent framework designed for complex, AI‑enabled organizations.
+      </p>
     </div>
-  </header>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <!-- Introduction -->
+  <section id="intro" class="reveal">
+    <p class="section-label">1 &mdash; Introduction</p>
+    <h2>Beyond Automation</h2>
+    <p>
+      As AI becomes embedded across enterprise operations, organizations increasingly recognize that
+      automation alone does not deliver transformation. Deloitte emphasizes that AI governance must
+      evolve from a compliance function into a <strong>strategic capability</strong> that accelerates
+      innovation and improves decision quality.
+    </p>
+    <p>
+      Harvard Business Review research further demonstrates that many AI initiatives fail not because
+      of technological limitations, but due to <em>organizational inertia, bureaucratic decision
+      processes, and misaligned governance structures</em>.
+    </p>
+    <p>
+      These insights motivate the Mycelium framework's core premise: <strong>governance itself must
+      be redesigned for an AI‑enabled world</strong>. The framework conceptualizes organizations as
+      living, distributed systems where AI augments human judgment, governance is embedded into
+      operational flows, and decision authority aligns with proximity to information rather than
+      hierarchical position.
+    </p>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <!-- Research -->
+  <section id="research" class="reveal">
+    <p class="section-label">2 &mdash; Related Research</p>
+    <h2>Thought Leadership Foundation</h2>
+    <p>
+      The Mycelium framework is grounded in converging insights from three authoritative sources,
+      each contributing a distinct lens on AI-enabled governance.
+    </p>
+
+    <div class="sources-grid">
+      <!-- Deloitte -->
+      <div class="source-card" data-src="deloitte">
+        <div class="source-icon">&#128312;</div>
+        <h3>Deloitte</h3>
+        <p>
+          Reframes governance as an <strong>enabler</strong>, not a constraint. Advocates for
+          dynamic systems that evolve alongside technology, combining oversight with adaptive
+          controls and clear accountability across the AI lifecycle.
+        </p>
+      </div>
+      <!-- Gartner -->
+      <div class="source-card" data-src="gartner">
+        <div class="source-icon">&#128200;</div>
+        <h3>Gartner</h3>
+        <p>
+          Focuses on <strong>operating models</strong> that balance risk and value creation. Predicts
+          AI agents will automate a significant share of enterprise decisions, demanding lightweight,
+          adaptive governance at machine speed.
+        </p>
+      </div>
+      <!-- Harvard -->
+      <div class="source-card" data-src="harvard">
+        <div class="source-icon">&#127979;</div>
+        <h3>Harvard</h3>
+        <p>
+          Finds AI succeeds only when <strong>organizational structures</strong> are redesigned.
+          Identifies bureaucracy and rigid workflows as primary inhibitors; stresses transparency and
+          accountability to counter black‑box decision‑making.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <!-- Propositions -->
+  <section id="propositions" class="reveal">
+    <p class="section-label">3 &mdash; Core Propositions</p>
+    <h2>The Mycelium Framework</h2>
+    <p>
+      Four interlocking propositions define the Mycelium approach to AI-enabled governance.
+    </p>
+
+    <div class="props-grid" style="margin-top:1.8rem">
+      <div class="prop-card">
+        <div class="prop-num">01</div>
+        <div class="prop-body">
+          <h3>Governance as an Embedded Capability</h3>
+          <p>
+            Governance is integrated into everyday decision‑making, not centralized in slow approval
+            committees. Controls, traceability, and oversight live directly inside workflows —
+            enabling speed without sacrificing accountability.
+          </p>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-num">02</div>
+        <div class="prop-body">
+          <h3>Distributed Decision Rights</h3>
+          <p>
+            Decision authority is distributed to organizational edges where information is generated,
+            supported by clear decision rights and risk‑tiered governance. This reduces bureaucratic
+            friction while maintaining strategic alignment.
+          </p>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-num">03</div>
+        <div class="prop-body">
+          <h3>Decision Velocity with Transparency</h3>
+          <p>
+            Speed is prioritized while transparency is ensured through lineage, logging, and
+            explainability — supporting AI‑augmented decision flows anticipated by Gartner and
+            addressing accountability concerns raised by Harvard researchers.
+          </p>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-num">04</div>
+        <div class="prop-body">
+          <h3>Continuous Adaptation</h3>
+          <p>
+            Governance is treated as a living system, continuously adapting through feedback loops,
+            audits, and learning mechanisms as technologies, regulations, and organizational contexts
+            evolve.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <!-- Alignment -->
+  <section id="alignment" class="reveal">
+    <p class="section-label">4 &mdash; Alignment</p>
+    <h2>Convergence with Established Frameworks</h2>
+    <p>
+      Research from Deloitte, Gartner, and Harvard converges on a central insight: AI demands new
+      forms of governance that are adaptive, embedded, transparent, and decision‑centric.
+    </p>
+
+    <table class="align-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Key Focus</th>
+          <th>Mycelium Operationalization</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="org">Deloitte</td>
+          <td>Dynamic &amp; trustworthy AI governance</td>
+          <td>Oversight embedded in operational systems rather than external controls</td>
+        </tr>
+        <tr>
+          <td class="org">Gartner</td>
+          <td>Decision velocity &amp; time‑to‑value</td>
+          <td>AI governance operating models enabling enterprise‑wide participation</td>
+        </tr>
+        <tr>
+          <td class="org">Harvard</td>
+          <td>Organizational redesign prerequisites</td>
+          <td>Directly addresses governance &amp; structure challenges for AI success</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <!-- Implementation -->
+  <section id="implementation" class="reveal">
+    <p class="section-label">5 &mdash; Implementation</p>
+    <h2>Adopting the Mycelium Framework</h2>
+    <p>Organizations adopting Mycelium should prioritize five concrete actions:</p>
+
+    <ul class="impl-list">
+      <li>
+        <span class="impl-check">&#10003;</span>
+        <span>Define explicit <strong>decision rights and risk tiers</strong> for AI‑enabled decisions</span>
+      </li>
+      <li>
+        <span class="impl-check">&#10003;</span>
+        <span>Embed <strong>observability, lineage, and explainability</strong> into decision systems</span>
+      </li>
+      <li>
+        <span class="impl-check">&#10003;</span>
+        <span>Replace static policies with <strong>adaptive governance routines</strong></span>
+      </li>
+      <li>
+        <span class="impl-check">&#10003;</span>
+        <span>Align <strong>incentives and performance measures</strong> with distributed decision‑making</span>
+      </li>
+      <li>
+        <span class="impl-check">&#10003;</span>
+        <span>Establish <strong>continuous feedback loops</strong> for governance evolution</span>
+      </li>
+    </ul>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <!-- Conclusion -->
+  <section id="conclusion" class="reveal">
+    <p class="section-label">6 &mdash; Conclusion</p>
+    <h2>A Practical Path to Modern Governance</h2>
+    <div class="abstract-card">
+      <p>
+        Research from Deloitte, Gartner, and Harvard converges on a central insight: AI demands new
+        forms of governance that are adaptive, embedded, transparent, and decision‑centric.
+      </p>
+      <p style="margin:0">
+        The Mycelium framework synthesizes these insights into a coherent model that reduces
+        bureaucratic friction, unlocks team potential, and enables organizations to scale AI
+        responsibly. As AI increasingly shapes enterprise decisions, Mycelium provides a practical
+        and conceptually grounded approach to modern governance.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <!-- References -->
+  <section id="references" class="reveal">
+    <p class="section-label">References</p>
+    <h2>Sources &amp; Further Reading</h2>
+
+    <ul class="refs-list">
+      <li>
+        Deloitte. <em>Dynamic AI Governance: A Recipe for Crafting Trustworthy AI.</em><br>
+        <a href="https://www.deloitte.com/us/en/insights/industry/government-public-sector-services/static-to-dynamic-ai-governance.html" target="_blank" rel="noopener">
+          deloitte.com &mdash; static-to-dynamic-ai-governance
+        </a>
+      </li>
+      <li>
+        Deloitte. <em>Trustworthy AI in Practice.</em><br>
+        <a href="https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/articles/trustworthy-ai-governance-in-practice.html" target="_blank" rel="noopener">
+          deloitte.com &mdash; trustworthy-ai-governance-in-practice
+        </a>
+      </li>
+      <li>
+        Deloitte / WSJ CIO Journal. <em>From Compliance to Catalyst: How Strong Governance Can Fuel AI Innovation.</em><br>
+        <a href="https://deloitte.wsj.com/cio/from-compliance-to-catalyst-how-strong-governance-can-fuel-ai-innovation-2da1f36d" target="_blank" rel="noopener">
+          deloitte.wsj.com &mdash; from-compliance-to-catalyst
+        </a>
+      </li>
+      <li>
+        Deloitte (via Harvard Law School Forum). <em>Strategic Governance of AI: A Roadmap for the Future.</em><br>
+        <a href="https://corpgov.law.harvard.edu/2025/04/24/strategic-governance-of-ai-a-roadmap-for-the-future/" target="_blank" rel="noopener">
+          corpgov.law.harvard.edu &mdash; strategic-governance-of-ai
+        </a>
+      </li>
+      <li>
+        Gartner. <em>How to Design an Effective AI Governance Operating Model.</em><br>
+        <a href="https://www.gartner.com/en/documents/5577627" target="_blank" rel="noopener">
+          gartner.com &mdash; document 5577627
+        </a>
+      </li>
+      <li>
+        Gartner (reported by Technology Magazine). <em>AI Agents Will Drive Half of Decisions by 2027.</em><br>
+        <a href="https://technologymagazine.com/articles/gartner-ai-agents-will-drive-half-of-decisions-by-2027" target="_blank" rel="noopener">
+          technologymagazine.com &mdash; gartner-ai-agents-will-drive-half-of-decisions-by-2027
+        </a>
+      </li>
+      <li>
+        Harvard Business Review. <em>Overcoming the Organizational Barriers to AI Adoption.</em><br>
+        <a href="https://hbr.org/2025/11/overcoming-the-organizational-barriers-to-ai-adoption" target="_blank" rel="noopener">
+          hbr.org &mdash; overcoming-the-organizational-barriers-to-ai-adoption
+        </a>
+      </li>
+      <li>
+        Harvard Business Review. <em>Match Your AI Strategy to Your Organization's Reality.</em><br>
+        <a href="https://hbr.org/2026/01/match-your-ai-strategy-to-your-organizations-reality" target="_blank" rel="noopener">
+          hbr.org &mdash; match-your-ai-strategy-to-your-organizations-reality
+        </a>
+      </li>
+      <li>
+        Harvard Business School, Institute for Business in Global Society. <em>Transparency and Accountability Are Crucial to AI Governance.</em><br>
+        <a href="https://www.hbs.edu/bigs/marc-rotenberg-artificial-intelligence" target="_blank" rel="noopener">
+          hbs.edu &mdash; marc-rotenberg-artificial-intelligence
+        </a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2026 <span>Hamida Rebai</span> &mdash; The Mycelium Framework &mdash; All rights reserved
+</footer>
+
+<script>
+/* ── Mycelium network canvas ──────────────────────────────────── */
+(function () {
+  const canvas = document.getElementById('mycelium-bg');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes, mouse = { x: 0, y: 0 };
+
+  const COLORS = ['#4dffb4', '#a78bfa', '#38bdf8'];
+  const NODE_COUNT = 60;
+  const MAX_DIST = 180;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function randomNode() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 2 + 1,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      pulse: Math.random() * Math.PI * 2,
+    };
+  }
+
+  function init() {
+    resize();
+    nodes = Array.from({ length: NODE_COUNT }, randomNode);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    /* move nodes */
+    nodes.forEach(n => {
+      n.pulse += 0.02;
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    });
+
+    /* draw edges */
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < MAX_DIST) {
+          const alpha = (1 - d / MAX_DIST) * 0.45;
+          ctx.beginPath();
+          ctx.strokeStyle = a.color + Math.round(alpha * 255).toString(16).padStart(2, '0');
+          ctx.lineWidth = 0.7;
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* draw nodes */
+    nodes.forEach(n => {
+      const glow = Math.sin(n.pulse) * 0.5 + 0.5;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r + glow, 0, Math.PI * 2);
+      ctx.fillStyle = n.color;
+      ctx.globalAlpha = 0.6 + glow * 0.4;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); });
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  init();
+  draw();
+})();
+
+/* ── Scroll progress ──────────────────────────────────────────── */
+(function () {
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (window.scrollY / max * 100) + '%';
+  });
+})();
+
+/* ── Scroll reveal ────────────────────────────────────────────── */
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
+
